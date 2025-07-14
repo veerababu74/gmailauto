@@ -1,8 +1,13 @@
+# Gmail Automation Backend - Render Configuration
+# 
+# If you encounter Rust compilation issues, you can switch to Docker deployment
+# by changing 'env: python' to 'env: docker' and commenting out buildCommand
+#
 services:
   - type: web
     name: gmail-automation-backend
     env: python
-    buildCommand: "pip install -r requirements.txt"
+    buildCommand: "chmod +x build.sh && ./build.sh"
     startCommand: "python run_server.py --production --workers 4"
     plan: starter
     branch: main
@@ -18,6 +23,10 @@ services:
         value: mysql
       - key: DB_USER
         value: fundsill_babu
+      - key: CARGO_HOME
+        value: /tmp/cargo
+      - key: RUSTUP_HOME
+        value: /tmp/rustup
       - key: DB_PASS
         value: Babu@7474
       - key: DB_HOST
