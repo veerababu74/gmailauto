@@ -1,0 +1,659 @@
+{
+    "info": {
+        "name": "Gmail Handler Automation API",
+        "description": "Complete API collection for Gmail automation handling",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "token",
+                "value": "{{jwt_token}}",
+                "type": "string"
+            }
+        ]
+    },
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:8000/api/v1/gmail-automation",
+            "type": "string"
+        },
+        {
+            "key": "jwt_token",
+            "value": "your_jwt_token_here",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Health Check",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/health",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "health"
+                    ]
+                },
+                "description": "Health check endpoint for Gmail automation APIs"
+            }
+        },
+        {
+            "name": "Random URLs",
+            "item": [
+                {
+                    "name": "Get All Random URLs",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/random-urls?skip=0&limit=100",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "random-urls"
+                            ],
+                            "query": [
+                                {
+                                    "key": "skip",
+                                    "value": "0"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "100"
+                                },
+                                {
+                                    "key": "is_active",
+                                    "value": "true",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "category",
+                                    "value": "news",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "search",
+                                    "value": "example",
+                                    "disabled": true
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Active Random URLs",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/random-urls/active",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "random-urls",
+                                "active"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Random URL",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"url\": \"https://example.com\",\n  \"description\": \"Example website for testing\",\n  \"category\": \"test\",\n  \"is_active\": true\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/random-urls",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "random-urls"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Random URL",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"url\": \"https://updated-example.com\",\n  \"description\": \"Updated description\",\n  \"category\": \"updated-test\",\n  \"is_active\": false\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/random-urls/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "random-urls",
+                                "1"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Random URL",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/random-urls/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "random-urls",
+                                "1"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Bulk Delete Random URLs",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"ids\": [1, 2, 3, 4, 5]\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/random-urls/bulk-delete",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "random-urls",
+                                "bulk-delete"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Default Senders",
+            "item": [
+                {
+                    "name": "Get All Default Senders",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/default-senders?skip=0&limit=100",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "default-senders"
+                            ],
+                            "query": [
+                                {
+                                    "key": "skip",
+                                    "value": "0"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "100"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Active Default Senders",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/default-senders/active",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "default-senders",
+                                "active"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Default Sender",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"sender@example.com\",\n  \"description\": \"Main sender email for testing\",\n  \"is_active\": true\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/default-senders",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "default-senders"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Default Sender",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"updated-sender@example.com\",\n  \"description\": \"Updated description\",\n  \"is_active\": false\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/default-senders/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "default-senders",
+                                "1"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Default Sender",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/default-senders/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "default-senders",
+                                "1"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Connectivity Settings",
+            "item": [
+                {
+                    "name": "Get All Connectivity Settings",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/connectivity-settings",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "connectivity-settings"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Connectivity Setting",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"setting_name\": \"proxy_server\",\n  \"setting_value\": \"proxy.example.com:8080\",\n  \"description\": \"Main proxy server configuration\",\n  \"is_active\": true\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/connectivity-settings",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "connectivity-settings"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Random Website Settings",
+            "item": [
+                {
+                    "name": "Get All Random Website Settings",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/random-website-settings",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "random-website-settings"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Random Website Setting",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"setting_name\": \"visit_duration_min\",\n  \"setting_value\": \"30\",\n  \"description\": \"Minimum time to spend on random websites (seconds)\",\n  \"is_active\": true\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/random-website-settings",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "random-website-settings"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Spam Handler Data",
+            "item": [
+                {
+                    "name": "Get All Spam Handler Data",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/spam-handler-data?skip=0&limit=100",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "spam-handler-data"
+                            ],
+                            "query": [
+                                {
+                                    "key": "skip",
+                                    "value": "0"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "100"
+                                },
+                                {
+                                    "key": "agent_name",
+                                    "value": "Agent_001",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "profile_name",
+                                    "value": "profile_gmail_1",
+                                    "disabled": true
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Spam Handler Data",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"agent_name\": \"Agent_001\",\n  \"profile_name\": \"profile_gmail_1\",\n  \"sender_email\": \"user@gmail.com\",\n  \"spam_emails_found\": 15,\n  \"moved_to_inbox\": 12,\n  \"total_time_seconds\": 45.5,\n  \"error_occurred\": false,\n  \"error_details\": null,\n  \"spam_email_subjects\": [\n    \"You've won a million dollars!\",\n    \"Urgent: Your account will be closed\"\n  ]\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/spam-handler-data",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "spam-handler-data"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Spam Handler Data by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/spam-handler-data/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "spam-handler-data",
+                                "1"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Spam Handler Data",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/spam-handler-data/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "spam-handler-data",
+                                "1"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Email Processing Data",
+            "item": [
+                {
+                    "name": "Get All Email Processing Data",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/email-processing-data?skip=0&limit=100",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "email-processing-data"
+                            ],
+                            "query": [
+                                {
+                                    "key": "skip",
+                                    "value": "0"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "100"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Email Processing Data",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"agent_name\": \"Agent_001\",\n  \"profile_name\": \"profile_gmail_1\",\n  \"sender_email\": \"user@gmail.com\",\n  \"email_subject\": \"Welcome to our newsletter!\",\n  \"is_opened\": true,\n  \"is_link_clicked\": true,\n  \"is_unsubscribe_clicked\": false,\n  \"is_reply_sent\": false,\n  \"random_website_visited\": \"https://example.com\",\n  \"random_website_duration_seconds\": 120.5,\n  \"total_duration_seconds\": 180.7,\n  \"error_occurred\": false,\n  \"error_details\": null\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/email-processing-data",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "email-processing-data"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Email Processing Data by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/email-processing-data/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "email-processing-data",
+                                "1"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Email Processing Data",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/email-processing-data/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "email-processing-data",
+                                "1"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Analytics",
+            "item": [
+                {
+                    "name": "Get Spam Handler Stats",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/analytics/spam-handler-stats",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "analytics",
+                                "spam-handler-stats"
+                            ],
+                            "query": [
+                                {
+                                    "key": "date_from",
+                                    "value": "2025-07-01T00:00:00Z",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "date_to",
+                                    "value": "2025-07-13T23:59:59Z",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "agent_name",
+                                    "value": "Agent_001",
+                                    "disabled": true
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Email Processing Stats",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/analytics/email-processing-stats",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "analytics",
+                                "email-processing-stats"
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

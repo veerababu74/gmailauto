@@ -1,0 +1,46 @@
+services:
+  - type: web
+    name: gmail-automation-backend
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python run_server.py --production --workers 4"
+    plan: starter
+    branch: main
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: 10000
+      - key: DB_TYPE
+        value: mysql
+      - key: DB_USER
+        value: fundsill_babu
+      - key: DB_PASS
+        value: Babu@7474
+      - key: DB_HOST
+        value: 45.113.224.7
+      - key: DB_PORT
+        value: 3306
+      - key: DB_NAME
+        value: fundsill_gmail_automation
+      - key: MYSQL_HOST
+        value: 45.113.224.7
+      - key: MYSQL_PORT
+        value: 3306
+      - key: MYSQL_USER
+        value: fundsill_babu
+      - key: MYSQL_PASSWORD
+        value: Babu@7474
+      - key: MYSQL_DATABASE
+        value: fundsill_gmail_automation
+      - key: SECRET_KEY
+        generateValue: true
+      - key: FRONTEND_URL
+        value: https://your-frontend-app.netlify.app
+      - key: BACKEND_CORS_ORIGINS
+        value: https://your-frontend-app.netlify.app,http://localhost:5173
+      - key: GMAIL_REDIRECT_URI
+        value: https://gmail-automation-backend.onrender.com/api/v1/auth/gmail/callback
