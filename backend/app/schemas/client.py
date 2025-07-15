@@ -1,7 +1,8 @@
 from typing import Optional, List
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, validator
 from datetime import datetime
 from enum import Enum
+from app.utils.email_validator import EmailStr, validate_email
 
 
 class ClientStatus(str, Enum):
@@ -20,6 +21,12 @@ class ClientBase(BaseModel):
     notes: Optional[str] = None
     tags: Optional[List[str]] = []
 
+    @validator("email")
+    def validate_email_format(cls, v):
+        if v:
+            return validate_email(v)
+        return v
+
 
 class ClientCreate(ClientBase):
     pass
@@ -33,6 +40,12 @@ class ClientUpdate(BaseModel):
     status: Optional[ClientStatus] = None
     notes: Optional[str] = None
     tags: Optional[List[str]] = None
+
+    @validator("email")
+    def validate_email_format(cls, v):
+        if v:
+            return validate_email(v)
+        return v
 
 
 class ClientInDB(ClientBase):
