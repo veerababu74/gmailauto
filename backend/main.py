@@ -1,11 +1,18 @@
 import os
+import sys
+from pathlib import Path
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.api_v1.api import api_router
 from app.core.config import settings
 from app.db.init_db import init_db
-from backend.z.gmailhandlerautomation import router as gmail_automation_router
+
+# Add the backend directory to Python path
+backend_dir = Path(__file__).parent
+sys.path.insert(0, str(backend_dir))
+
+from z.gmailhandlerautomation import router as gmail_automation_router
 
 
 @asynccontextmanager
@@ -14,7 +21,6 @@ async def lifespan(app: FastAPI):
     init_db()
     yield
     # Shutdown
-    # Add any cleanup code here if needed
     pass
 
 
@@ -26,27 +32,10 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Set up CORS - Use environment variables for production
-cors_origins = []
-if settings.BACKEND_CORS_ORIGINS:
-    cors_origins.extend(settings.BACKEND_CORS_ORIGINS)
-
-# Add default development origins if not in production
-if not os.getenv("ENVIRONMENT") == "production":
-    cors_origins.extend(
-        [
-            "http://localhost:5173",
-            "http://localhost:5174",
-            "http://localhost:5175",
-            "http://127.0.0.1:5173",
-            "http://127.0.0.1:5174",
-            "http://127.0.0.1:5175",
-        ]
-    )
-
+# CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=cors_origins,
+    allow_origins=["*"],  # Allow all origins for simplicity
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -74,4 +63,5 @@ async def health_check_root():
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False)

@@ -68,9 +68,9 @@ class Settings(BaseSettings):
 
     MYSQL_DATABASE: str = "gmail_automation"
 
-    # Database Pool Configuration for High Concurrency (1000+ users)
-    DB_POOL_SIZE: int = 20  # Base number of connections in pool
-    DB_MAX_OVERFLOW: int = 80  # Additional connections beyond pool_size
+    # Database Pool Configuration
+    DB_POOL_SIZE: int = 10  # Reduced for simpler deployment
+    DB_MAX_OVERFLOW: int = 20  # Reduced for simpler deployment
     DB_POOL_TIMEOUT: int = 30  # Seconds to wait for connection
     DB_POOL_RECYCLE: int = 3600  # Recycle connections after 1 hour
     DB_KEEP_ALIVE_INTERVAL: int = 1800  # Keep-alive ping every 30 minutes
@@ -90,9 +90,6 @@ class Settings(BaseSettings):
     SMTP_HOST: str = "smtp.gmail.com"
     SMTP_USER: str = ""
     SMTP_PASSWORD: str = ""
-
-    # Redis (for Celery)
-    REDIS_URL: str = "redis://localhost:6379/0"
 
     # Pagination
     DEFAULT_PAGE_SIZE: int = 20
