@@ -33,7 +33,10 @@ def init_db():
 
         print(f"Database tables created successfully!")
         print(f"Database type: {db_manager.db_type}")
-        print(f"Pool status: {db_manager.get_pool_status()}")
+        try:
+            print(f"Pool status: {db_manager.get_pool_status()}")
+        except Exception as pool_error:
+            print(f"Pool status check failed (non-critical): {pool_error}")
 
     except Exception as e:
         print(f"Error initializing database: {e}")

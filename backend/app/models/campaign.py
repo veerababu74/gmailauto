@@ -84,7 +84,7 @@ class ClientCampaign(Base):
 
     # Status for this specific client
     status = Column(
-        String, default="pending"
+        String(50), default="pending"
     )  # pending, sent, delivered, opened, clicked, replied, bounced
 
     # Relationships

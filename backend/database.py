@@ -264,21 +264,34 @@ class DatabaseManager:
     def create_tables(self):
         """Create all database tables"""
         try:
-            Base.metadata.create_all(bind=self.engine)
+            # Use checkfirst=True to avoid attempting to recreate existing tables
+            Base.metadata.create_all(bind=self.engine, checkfirst=True)
             logger.info("Database tables created successfully")
         except Exception as e:
             logger.error(f"Failed to create tables: {e}")
-            raise
+            # If it's a table already exists error, we can ignore it
+            if "already exists" in str(e):
+                logger.info("Some tables already exist, continuing...")
+            else:
+                raise
 
     async def create_tables_async(self):
         """Create all database tables asynchronously"""
         try:
             async with self.async_engine.begin() as conn:
-                await conn.run_sync(Base.metadata.create_all)
+                await conn.run_sync(
+                    lambda sync_conn: Base.metadata.create_all(
+                        sync_conn, checkfirst=True
+                    )
+                )
             logger.info("Database tables created successfully (async)")
         except Exception as e:
             logger.error(f"Failed to create tables (async): {e}")
-            raise
+            # If it's a table already exists error, we can ignore it
+            if "already exists" in str(e):
+                logger.info("Some tables already exist, continuing...")
+            else:
+                raise
 
     def test_connection(self) -> bool:
         """Test database connection"""
@@ -305,13 +318,16 @@ class DatabaseManager:
     def get_pool_status(self) -> dict:
         """Get current connection pool status"""
         if hasattr(self.engine.pool, "size"):
-            return {
+            status = {
                 "pool_size": self.engine.pool.size(),
                 "checked_in": self.engine.pool.checkedin(),
                 "checked_out": self.engine.pool.checkedout(),
                 "overflow": self.engine.pool.overflow(),
-                "invalidated": self.engine.pool.invalidated(),
             }
+            # Only add invalidated if the method exists
+            if hasattr(self.engine.pool, "invalidated"):
+                status["invalidated"] = self.engine.pool.invalidated()
+            return status
         return {"status": "Pool information not available"}
 
     def close(self):
