@@ -30,9 +30,9 @@ try:
         name: str
 
         class Config:
-            from_attributes = True
+            orm_mode = True
 
-    print("✓ Pydantic v2 syntax works")
+    print("✓ Pydantic v1 syntax works")
 
 except Exception as e:
     print(f"✗ Pydantic test failed: {e}")

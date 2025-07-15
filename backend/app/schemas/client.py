@@ -42,7 +42,7 @@ class ClientInDB(ClientBase):
     updated_at: Optional[datetime] = None
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 
 class Client(ClientBase):
@@ -52,7 +52,7 @@ class Client(ClientBase):
     updated_at: Optional[datetime] = None
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 
 class ClientStats(BaseModel):

@@ -54,7 +54,7 @@ class CampaignInDB(CampaignBase):
     replied_count: int = 0
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 
 class Campaign(CampaignBase):
@@ -67,7 +67,7 @@ class Campaign(CampaignBase):
     replied_count: int = 0
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 
 class CampaignStats(BaseModel):

@@ -33,7 +33,7 @@ class DefaultSenderInDB(DefaultSenderBase):
     updated_at: datetime
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 
 class DefaultSenderResponse(DefaultSenderInDB):

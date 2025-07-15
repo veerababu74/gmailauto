@@ -24,7 +24,7 @@ class LoggedOutProfileResponse(LoggedOutProfileBase):
     updated_at: datetime
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 
 class LoggedOutProfileListResponse(BaseModel):
