@@ -7,14 +7,12 @@ python-decouple==3.8
 sqlalchemy==2.0.23
 alembic==1.12.1
 pymysql==1.1.0
-mysql-connector-python==8.2.0
 cryptography==41.0.7
 aiosqlite==0.19.0
-pydantic==2.5.2  # Updated version
-pydantic-settings==2.1.0
+pydantic==1.10.13
 email-validator==2.1.0
 httpx==0.25.2
 google-auth==2.23.4
 google-auth-oauthlib==1.1.0
 google-auth-httplib2==0.1.1
-google-api-python-client==2.108.0
+google-api-python-client==1.6.3
