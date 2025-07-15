@@ -1,6 +1,7 @@
 from typing import Optional
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, validator
 from datetime import datetime
+from app.utils.email_validator import validate_email, EmailStr
 
 
 class UserBase(BaseModel):
@@ -12,6 +13,10 @@ class UserBase(BaseModel):
     avatar_url: Optional[str] = None
     is_active: bool = True
     email_notifications: bool = True
+
+    @validator("email")
+    def validate_email_field(cls, v):
+        return validate_email(v)
 
 
 class UserCreate(UserBase):

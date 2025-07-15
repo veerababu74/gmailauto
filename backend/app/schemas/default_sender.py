@@ -1,5 +1,6 @@
-from pydantic import BaseModel, EmailStr, validator
+from pydantic import BaseModel, validator
 from typing import Optional
+from app.utils.email_validator import validate_email, EmailStr
 from datetime import datetime
 
 
@@ -9,6 +10,10 @@ class DefaultSenderBase(BaseModel):
     email: EmailStr
     description: Optional[str] = None
     is_active: bool = True
+
+    @validator("email")
+    def validate_email_field(cls, v):
+        return validate_email(v)
 
 
 class DefaultSenderCreate(DefaultSenderBase):
