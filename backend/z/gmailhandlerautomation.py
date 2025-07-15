@@ -12,12 +12,13 @@ Comprehensive API endpoints for Gmail automation handling including:
 from typing import List, Optional, Dict, Any
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
-from pydantic import BaseModel, EmailStr, HttpUrl, validator
+from pydantic import BaseModel, HttpUrl, validator
 from datetime import datetime
 import math
 
 from app.api.deps import get_db, get_current_user
 from app.crud.crud_default_sender import default_sender
+from app.utils.email_validator import EmailStr, validate_email
 from app.crud.crud_random_url import random_url
 from app.crud.crud_connectivity_settings import connectivity_settings
 from app.crud.crud_random_website_settings import random_website_settings
@@ -77,6 +78,12 @@ class DefaultSenderBase(BaseModel):
     description: Optional[str] = None
     is_active: bool = True
 
+    @validator("email")
+    def validate_email_format(cls, v):
+        if v:
+            return validate_email(v)
+        return v
+
 
 class DefaultSenderCreate(DefaultSenderBase):
     pass
@@ -86,6 +93,12 @@ class DefaultSenderUpdate(BaseModel):
     email: Optional[EmailStr] = None
     description: Optional[str] = None
     is_active: Optional[bool] = None
+
+    @validator("email")
+    def validate_email_format(cls, v):
+        if v:
+            return validate_email(v)
+        return v
 
 
 class DefaultSenderResponse(DefaultSenderBase):
@@ -188,6 +201,13 @@ class SpamHandlerDataCreate(BaseModel):
     error_occurred: bool = False
     error_details: Optional[str] = None
     spam_email_subjects: Optional[List[str]] = None
+
+    @validator("sender_email")
+    def validate_sender_email(cls, v):
+        if v:
+            return validate_email(v)
+        return v
+
     timestamp: Optional[datetime] = None
 
 
@@ -233,6 +253,13 @@ class EmailProcessingDataCreate(BaseModel):
     total_duration_seconds: Optional[float] = 0.0
     error_occurred: bool = False
     error_details: Optional[str] = None
+
+    @validator("sender_email")
+    def validate_sender_email(cls, v):
+        if v:
+            return validate_email(v)
+        return v
+
     timestamp: Optional[datetime] = None
 
 
