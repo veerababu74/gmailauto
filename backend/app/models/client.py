@@ -28,10 +28,10 @@ class Client(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
 
     # Basic Info
-    name = Column(String, nullable=False)
-    email = Column(String, nullable=False)
-    phone = Column(String, nullable=True)
-    company = Column(String, nullable=True)
+    name = Column(String(255), nullable=False)
+    email = Column(String(255), nullable=False)
+    phone = Column(String(50), nullable=True)
+    company = Column(String(255), nullable=True)
 
     # Status and Settings
     status = Column(Enum(ClientStatus), default=ClientStatus.ACTIVE)
@@ -39,7 +39,7 @@ class Client(Base):
     notes = Column(Text, nullable=True)
 
     # Contact Info
-    website = Column(String, nullable=True)
+    website = Column(String(500), nullable=True)
     address = Column(Text, nullable=True)
 
     # Automation Settings

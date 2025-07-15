@@ -38,8 +38,8 @@ class Campaign(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
 
     # Campaign Info
-    name = Column(String, nullable=False)
-    subject = Column(String, nullable=False)
+    name = Column(String(255), nullable=False)
+    subject = Column(String(500), nullable=False)
     content = Column(Text, nullable=False)
     campaign_type = Column(Enum(CampaignType), default=CampaignType.OUTREACH)
     status = Column(Enum(CampaignStatus), default=CampaignStatus.DRAFT)
